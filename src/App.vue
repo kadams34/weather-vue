@@ -1,8 +1,8 @@
 <template>
-  <div id="app" :class="typeof weather.main !== 'undefined' && weather.main.temp > 70 ? 'warm' : ''">
+  <div id="app" :class="typeof weather.main !== 'undefined' && weather.main.temp >= 60 ? 'warm' : (typeof weather.main !== 'undefined' && weather.main.temp < 60 ? 'cold' : '')">
     <main>
       <div class="search-box">
-        <input type="text" class="search-bar" placeholder="Search..." v-model="query" @keypress="fetchWeather" />
+        <input type="text" class="search-bar" placeholder="Where are we..." v-model="query" @keypress="fetchWeather" />
       </div>
 
       <div class="weather-wrap" v-if="typeof weather.main !== 'undefined'">
@@ -71,7 +71,7 @@ body {
 }
 
 #app {
-  background-image: url('./assets/cold-bg.jpg');
+  background-image: url('./assets/home-bg.gif');
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
@@ -79,13 +79,23 @@ body {
 
 #app.warm {
   background-image: url(./assets/hot-bg.gif);
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.4s;
+}
+
+#app.cold {
+  background-image: url(./assets/cold-bg.gif);
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.4s;
 }
 
 main {
   min-height: 100vh;
   padding: 25px;
 
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5));
 }
 
 .search-box {
